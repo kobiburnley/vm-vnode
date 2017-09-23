@@ -1,8 +1,9 @@
 package vm.component
 
+import vm.vdom.Platform
 import xkotlin.js.JsName
 
-interface IComponent<P, S>: IRenderable<P>, ILifeCycle<P> {
+interface IComponent<P, S> : HasProps<P>, ILifeCycle<P> {
     @JsName("mState")
     var state: S
 
@@ -10,8 +11,13 @@ interface IComponent<P, S>: IRenderable<P>, ILifeCycle<P> {
     override fun componentWillMount() {}
     override fun componentWillReceiveProps(newProps: P) {}
 
+    fun updateView(newState: S) {}
+
     @JsName("setState")
-    fun updateView(newState: S) {
-        stateSetter!!.invoke(this, newState)
+    fun _setState(newState: S) {
+        when (Platform.platform) {
+            Platform.WEB -> stateSetter!!.invoke(this, newState)
+            else -> updateView(newState)
+        }
     }
 }

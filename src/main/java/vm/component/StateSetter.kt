@@ -1,3 +1,3 @@
 package vm.component
 
-var stateSetter: ((component: IRenderable<*>, state: Any?) -> Unit)? = null
+var stateSetter: ((component: HasProps<*>, state: Any?) -> Unit)? = null

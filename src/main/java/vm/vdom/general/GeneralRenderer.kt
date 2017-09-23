@@ -1,7 +1,7 @@
 package vm.vdom.general
 
 import vm.component.IComponent
-import vm.component.IRenderable
+import vm.component.HasProps
 import vm.vdom.Renderer
 import vm.vnode.VNode
 import kotlin.reflect.KFunction0
@@ -13,7 +13,7 @@ object GeneralRenderer : Renderer<String> {
         else -> throw IllegalArgumentException(any?.toString())
     }
 
-    override fun <P> renderComponent(component: IRenderable<P>, props: P): String {
+    override fun <P> renderComponent(component: HasProps<P>, props: P): String {
         if (component is IComponent<P, *>) {
             component.componentWillReceiveProps(props)
         }
@@ -28,7 +28,7 @@ object GeneralRenderer : Renderer<String> {
     override fun <P> renderVNode(vNode: VNode<P>): String {
         val nodeName = vNode.nodeName
         return when (nodeName) {
-            is KFunction0<*> -> renderComponent<P>(nodeName.invoke() as IRenderable<P>, vNode.props as P)
+            is KFunction0<*> -> renderComponent<P>(nodeName.invoke() as HasProps<P>, vNode.props as P)
             is String -> walkSimple(vNode)
             else -> throw IllegalArgumentException("nodeName must be renderable or string")
         }
