@@ -34,7 +34,7 @@ object GeneralRenderer : Renderer<String> {
         }
     }
 
-    override fun walkSimple(vNode: VNode<*>): String {
+    fun walkSimple(vNode: VNode<*>): String {
         val nodeName = vNode.nodeName
         val attributes = vNode.props?.toString()
         val children = vNode.children?.map(GeneralRenderer::render)?.joinToString("\n") ?: "***"
