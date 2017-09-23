@@ -12,7 +12,7 @@ class RenderKtTest {
     @Test
     fun renderTest() {
         val rc = RenderComponent()
-        println(renderComponent(rc, "World"))
+        println(GeneralRenderer.renderComponent(rc, "World"))
 //        println(render(h(RenderComponent())))
     }
 
