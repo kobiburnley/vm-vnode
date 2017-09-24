@@ -5,5 +5,5 @@ import xkotlin.js.JsName
 
 interface IRenderable {
     @JsName("render")
-    fun render(): VNode<*>
+    fun render(): VNode<*, *>
 }

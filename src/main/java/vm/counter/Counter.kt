@@ -3,7 +3,6 @@ package vm.counter
 import vm.component.Component
 import vm.props.android.*
 import vm.review.android.ITextView
-import vm.vdom.Platform
 import vm.vnode.VNode
 import vm.vnode.h
 
@@ -22,7 +21,7 @@ class Counter : PlatformComponent, Component<CounterProps?, CounterState>(Counte
         }
     }
 
-    override fun renderAndroid(): VNode<*> {
+    override fun renderAndroid(): VNode<*, *> {
         val textViewProps = TextViewProps(state.num.toString(), ref = { r ->
             textView = r as ITextView
         })
