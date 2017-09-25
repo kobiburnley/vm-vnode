@@ -1,8 +1,7 @@
 package vm.counter
 
-import vm.component.HasProps
 import vm.component.IRenderable
-import vm.vdom.Platform
+import vm.render.Platform
 import vm.vnode.VNode
 
 interface PlatformComponent : IRenderable {

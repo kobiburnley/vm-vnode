@@ -1,6 +1,6 @@
 package vm.component
 
-import vm.vdom.Platform
+import vm.render.Platform
 import xkotlin.js.JsName
 
 interface IComponent<P, S> : HasProps<P>, ILifeCycle<P> {

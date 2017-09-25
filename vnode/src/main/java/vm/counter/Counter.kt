@@ -1,8 +1,8 @@
 package vm.counter
 
+import iview.ITextView
 import vm.component.Component
 import vm.props.android.*
-import vm.review.android.ITextView
 import vm.vnode.VNode
 import vm.vnode.h
 

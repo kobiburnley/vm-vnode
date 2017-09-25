@@ -1,0 +1,2 @@
+include ':vnode', ':iview'
+project (":iview").projectDir = new File("../iview")
