@@ -33,7 +33,7 @@ class Counter : PlatformComponent, Component<CounterProps?, CounterState>(Counte
 
     override fun renderWeb() =
             h("div", null,
-                    h("button", vm.props.web.ButtonProps(handleClick)),
+                    h("button", vm.props.web.ButtonProps(handleClick), "CLICK"),
                     h("span", null,
                             state.num.toString()
                     )
