@@ -17,7 +17,7 @@ object GeneralRenderer  {
             component.componentWillReceiveProps(props)
         }
         component.props = props
-        val s = renderVNode(component.render())
+        val s = render(component.render())
         if (component is IComponent<P, *>) {
             component.componentDidMount()
         }
