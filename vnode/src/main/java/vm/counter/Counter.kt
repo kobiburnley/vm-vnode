@@ -3,8 +3,7 @@ package vm.counter
 import iview.ITextView
 import vm.component.Component
 import vm.props.android.*
-import vm.vnode.VNode
-import vm.vnode.h
+import vm.vnode.*
 
 class Counter : PlatformComponent, Component<CounterProps?, CounterState>(CounterState(0)) {
     override var props: CounterProps? = null
@@ -25,19 +24,21 @@ class Counter : PlatformComponent, Component<CounterProps?, CounterState>(Counte
         val textViewProps = TextViewProps(state.num.toString(), ref = { r ->
             textView = r as ITextView
         })
-        return h("linearLayout", null,
-                h("button", vm.props.android.ButtonProps(handleClick, "CLICK")),
-                h("textView", textViewProps)
-        )
+        return h(LINEAR, null) {
+            +h(BUTTON, vm.props.android.ButtonProps(handleClick, "CLICK"))
+            +h(TEXT, textViewProps)
+        }
     }
 
     override fun renderWeb() =
-            h("div", null,
-                    h("button", vm.props.web.ButtonProps(handleClick), "CLICK"),
-                    h("span", null,
-                            state.num.toString()
-                    )
-            )
+            h("div", null) {
+                +h("button", vm.props.web.ButtonProps(handleClick)) {
+                    +"CLICK"
+                }
+                +h("span", null) {
+                    +state.num.toString()
+                }
+            }
 
 }
 

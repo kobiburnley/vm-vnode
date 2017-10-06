@@ -10,21 +10,30 @@ class HKtTest {
     @org.junit.Test
     fun hTest() {
         Platform.platform = Platform.UNKNOWN
-        val counterNode = h(::Counter, CounterProps(num = 2)) {
-            +h("div", null) {
-                h("div") {
+        val counterNode = h(::Counter, CounterProps(num = 2))
 
+        val div = h("div", null) {
+            +h("button", null) {
+                +h("button", null) {
+                    +h("button", null) {
+                        +h("button", null) {
+                            +h("button", null) {
+                                +h("button", null) {
+                                    +h("button", null) {
+                                        +"CLICK"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            +h("div", null) {
-                h("div", null) {
-
-                }
+            +h("span", null) {
+                +(2).toString()
             }
         }
 
+        println(GeneralRenderer.render(div))
         println(GeneralRenderer.render(counterNode))
-
-
     }
 }

@@ -7,6 +7,7 @@ interface IComponent<P, S> : HasProps<P>, ILifeCycle<P> {
     @JsName("mState")
     var state: S
 
+    override fun componentWillUnmount() {}
     override fun componentDidMount() {}
     override fun componentWillMount() {}
     override fun componentWillReceiveProps(newProps: P) {}

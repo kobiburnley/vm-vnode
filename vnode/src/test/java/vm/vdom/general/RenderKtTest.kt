@@ -22,28 +22,25 @@ class RenderComponent : Component<String, Any?>(null) {
     override var state: Any? = Unit
     override var props: String = ""
 
-    override fun render() = h(
-            "button", null,
-            h("span", null,
-                    """Hello $props"""
-            ),
-            "nothing",
-            h(::ChildComponent, "Hello",
-                    "44444444"
-            )
-
-    )
+    override fun render() = h("button", null) {
+        +h("span", null) {
+            +"""Hello $props"""
+        }
+        +"nothing"
+        +h(::ChildComponent, "Hello") {
+            +"44444444"
+        }
+    }
 }
 
 
-class ChildComponent: IComponent<String, Any> {
+class ChildComponent : IComponent<String, Any> {
     override var state: Any = Unit
     override var props: String = ""
 
-    override fun render() = h(
-            "a", null,
-            h("h1", null,
-                    """Hello $props"""
-            )
-    )
+    override fun render() = h("a", null) {
+        +h("h1", null) {
+            +"""Hello $props"""
+        }
+    }
 }

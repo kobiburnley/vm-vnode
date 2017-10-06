@@ -27,7 +27,7 @@ object GeneralRenderer  {
     fun <P> renderVNode(vNode: VNode<P, *>): String {
         val nodeName = vNode.nodeName
         return when (nodeName) {
-            is KFunction0<*> -> renderComponent<P>(nodeName.invoke() as HasProps<P>, vNode.props as P)
+            is KFunction0<*> -> renderComponent<P>(nodeName.invoke() as HasProps<P>, vNode.attributes as P)
             is String -> walkSimple(vNode)
             else -> throw IllegalArgumentException("nodeName must be renderable or string")
         }
@@ -35,8 +35,8 @@ object GeneralRenderer  {
 
     fun walkSimple(vNode: VNode<*, *>): String {
         val nodeName = vNode.nodeName
-        val attributes = vNode.props?.toString()
-        val children = vNode.children?.map(GeneralRenderer::render)?.joinToString("\n") ?: "***"
+        val attributes = vNode.attributes?.toString()
+        val children = vNode._children?.map(GeneralRenderer::render)?.joinToString("\n") ?: "***"
         return """<$nodeName $attributes>
         |$children
         |</$nodeName>""".trimMargin()
