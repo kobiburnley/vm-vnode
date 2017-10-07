@@ -3,64 +3,84 @@ package vm.props.android
 import vm.component.IComponent
 import vm.counter.FlatListProps
 import vm.render.IRenderer
+import javax.swing.text.View
 
 typealias RefFun = (any: Any) -> Unit
 interface IRefProps {
     var ref: RefFun?
 }
 
-open class RefProps(override var ref: RefFun?) : IRefProps
+open class RefProps(override var ref: RefFun? = null) : IRefProps
 
 
 val MATCH_PARENT = -1
 val WRAP_CONTENT = -2
 
-open class ReLayoutParams(
-        val height: Int,
-        val width: Int
-) {
-    class RelativeLayout(height: Int = MATCH_PARENT,
-                         width: Int = MATCH_PARENT,
-                         val toLeftOf: Int = -1,
-                         val toRightOf: Int = -1,
-                         val centerHorizontal: Boolean = false,
-                         val centerVertical: Boolean = false) : ReLayoutParams(height, width)
 
-
+interface ILayoutParams {
+    val height: Int
+    val width: Int
 }
 
+class ReLayoutParams(
+        override val height: Int = MATCH_PARENT,
+        override val width: Int = MATCH_PARENT
+) : ILayoutParams
 
-open class ViewProps(
-        val id: Int = 0,
-        val paddingTop: Int = 0,
-        val paddingRight: Int = 0,
-        val paddingBottom: Int = 0,
-        val paddingLeft: Int = 0,
-        val layoutParams: ReLayoutParams = ReLayoutParams(MATCH_PARENT, MATCH_PARENT),
+
+class RelativeLayoutParams(
+        override val height: Int = MATCH_PARENT,
+        override val width: Int = MATCH_PARENT,
+        val toLeftOf: Int = -1,
+        val toRightOf: Int = -1,
+        val below: Int = -1,
+        val centerHorizontal: Boolean = false,
+        val centerVertical: Boolean = false,
+        val alignParentLeft: Boolean = false,
+        val alignParentRight: Boolean = false,
+        val alignParentTop: Boolean = false
+) : ILayoutParams
+
+class LinearLayoutParams(
+        override val height: Int = MATCH_PARENT,
+        override val width: Int = MATCH_PARENT,
+        val weight: Float = 0F
+) : ILayoutParams
+
+interface IViewProps : IRefProps {
+    val id: Int
+    val bgColor: Int
+    val paddingTop: Int
+    val paddingRight: Int
+    val paddingBottom: Int
+    val paddingLeft: Int
+    val layoutParams: ILayoutParams
+}
+
+class ViewProps(
+        override val id: Int = -1,
+        override val bgColor: Int = -1,
+        override val paddingTop: Int = 0,
+        override val paddingRight: Int = 0,
+        override val paddingBottom: Int = 0,
+        override val paddingLeft: Int = 0,
+        override val layoutParams: ILayoutParams = ReLayoutParams(),
         ref: RefFun? = null
-) : RefProps(ref)
+) : IViewProps, RefProps(ref)
 
 class ButtonProps(val onClick: () -> Unit, val title: String,
-                  id: Int = 0,
-                  paddingTop: Int = 0,
-                  paddingRight: Int = 0,
-                  paddingBottom: Int = 0,
-                  paddingLeft: Int = 0,
-                  layoutParams: ReLayoutParams = ReLayoutParams(MATCH_PARENT, MATCH_PARENT),
-                  ref: RefFun? = null
-) : ViewProps(id, paddingTop, paddingRight, paddingBottom, paddingLeft, layoutParams, ref)
+                  val viewProps: ViewProps = ViewProps()
+) : IViewProps by viewProps
 
 class TextViewProps(val text: String,
-                    id: Int = 0,
-                    paddingTop: Int = 0,
-                    paddingRight: Int = 0,
-                    paddingBottom: Int = 0,
-                    paddingLeft: Int = 0,
-                    layoutParams: ReLayoutParams = ReLayoutParams(MATCH_PARENT, MATCH_PARENT),
-                    ref: RefFun? = null
-) : ViewProps(id, paddingTop, paddingRight, paddingBottom, paddingLeft, layoutParams, ref)
+                    val viewProps: ViewProps = ViewProps()
+) : IViewProps by viewProps
+
+class EditTextProps(
+        val viewProps: ViewProps = ViewProps()
+) : IViewProps by viewProps
 
 class RecyclerProps(
         val flatListProps: FlatListProps,
         val viewProps: ViewProps = ViewProps()
-) : IRefProps by viewProps
+) : IViewProps by viewProps

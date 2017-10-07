@@ -19,7 +19,7 @@ class Loading : PlatformComponent, Component<LoadingProps, LoadingState>(Loading
 
     override fun renderAndroid() = h(RELATIVE, ViewProps()) {
         +h(SPINNER, ViewProps(
-                layoutParams = ReLayoutParams.RelativeLayout(centerHorizontal = true, centerVertical = true, height = 100, width = 100),
+                layoutParams = RelativeLayoutParams(centerHorizontal = true, centerVertical = true, height = 100, width = 100),
                 ref = { args ->
                     spinner = args as IView
                 }

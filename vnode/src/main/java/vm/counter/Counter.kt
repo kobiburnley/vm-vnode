@@ -21,9 +21,9 @@ class Counter : PlatformComponent, Component<CounterProps?, CounterState>(Counte
     }
 
     override fun renderAndroid(): VNode<*, *> {
-        val textViewProps = TextViewProps(state.num.toString(), ref = { r ->
+        val textViewProps = TextViewProps(state.num.toString(), viewProps = ViewProps(ref = { r ->
             textView = r as ITextView
-        })
+        }))
         return h(LINEAR, null) {
             +h(BUTTON, vm.props.android.ButtonProps(handleClick, "CLICK"))
             +h(TEXT, textViewProps)

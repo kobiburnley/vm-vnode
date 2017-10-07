@@ -2,10 +2,7 @@ package vm.counter
 
 import iview.IRecycler
 import vm.component.Component
-import vm.props.android.RecyclerProps
-import vm.props.android.RefFun
-import vm.props.android.RefProps
-import vm.props.android.ViewProps
+import vm.props.android.*
 import vm.vnode.RECYCLER
 import vm.vnode.VNode
 import vm.vnode.h
@@ -20,7 +17,7 @@ class FlatList : PlatformComponent, Component<FlatListProps, FlatListState>(Flat
 
     override fun renderAndroid() = h(RECYCLER, RecyclerProps(
             flatListProps = props,
-            viewProps = ViewProps(ref = { child ->
+            viewProps = ViewProps(layoutParams = props.layoutParams, ref = { child ->
                 recycler = child as IRecycler
             })
     ))
@@ -37,6 +34,6 @@ typealias UpdateRowEvent = (args: Any, position: Int) -> Unit
 class FlatListProps(val length: Int,
                     val onRenderRow: RenderRowEvent,
                     val onUpdateRow: UpdateRowEvent,
-                    ref: RefFun? = null) : RefProps(ref)
+                    val viewProps: ViewProps = ViewProps()) : IViewProps by viewProps
 
 data class FlatListState(val length: Int)
