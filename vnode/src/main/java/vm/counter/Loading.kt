@@ -1,8 +1,7 @@
 package vm.counter
 
-import iview.GONE
 import iview.IView
-import iview.VISIBLE
+import iview.Visibility
 import vm.component.Component
 import vm.component.HasProps
 import vm.props.android.*
@@ -39,11 +38,11 @@ class Loading : PlatformComponent, Component<LoadingProps, LoadingState>(Loading
 
     override fun updateView(newState: LoadingState) {
         if (newState.loading) {
-            spinner.setVisibility(VISIBLE)
-            inner.setVisibility(GONE)
+            spinner.setVisibility(Visibility.VISIBLE)
+            inner.setVisibility(Visibility.GONE)
         } else if (newState.hasData) {
-            spinner.setVisibility(GONE)
-            inner.setVisibility(VISIBLE)
+            spinner.setVisibility(Visibility.GONE)
+            inner.setVisibility(Visibility.VISIBLE)
         }
     }
 

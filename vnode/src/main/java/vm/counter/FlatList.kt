@@ -17,8 +17,9 @@ class FlatList : PlatformComponent, Component<FlatListProps, FlatListState>(Flat
 
     override fun renderAndroid() = h(RECYCLER, RecyclerProps(
             flatListProps = props,
-            viewProps = ViewProps(layoutParams = props.layoutParams, ref = { child ->
+            viewProps = ViewProps(bgColor = props.bgColor, layoutParams = props.layoutParams, ref = { child ->
                 recycler = child as IRecycler
+                recycler.length = props.length
             })
     ))
 
@@ -29,7 +30,7 @@ class FlatList : PlatformComponent, Component<FlatListProps, FlatListState>(Flat
 }
 
 typealias RenderRowEvent = (args: Any?) -> VNode<*, *>
-typealias UpdateRowEvent = (args: Any, position: Int) -> Unit
+typealias UpdateRowEvent = (args: ReView, position: Int) -> Unit
 
 class FlatListProps(val length: Int,
                     val onRenderRow: RenderRowEvent,

@@ -25,7 +25,7 @@ class Counter : PlatformComponent, Component<CounterProps?, CounterState>(Counte
             textView = r as ITextView
         }))
         return h(LINEAR, null) {
-            +h(BUTTON, vm.props.android.ButtonProps(handleClick, "CLICK"))
+            +h(BUTTON, vm.props.android.ButtonProps(viewProps = ViewProps(onClick = handleClick), title = "CLICK"))
             +h(TEXT, textViewProps)
         }
     }
