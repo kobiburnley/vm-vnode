@@ -16,13 +16,19 @@ class Loading : PlatformComponent, Component<LoadingProps, LoadingState>(Loading
     lateinit var spinner: IView
     lateinit var inner: IView
 
-    override fun renderAndroid() = h(RELATIVE, ViewProps()) {
-        +h(SPINNER, ViewProps(
-                layoutParams = RelativeLayoutParams(centerHorizontal = true, centerVertical = true, height = 100, width = 100),
+    override fun renderAndroid() = h<ViewProps>(RELATIVE) {
+        attributes = ViewProps {
+            top = props.top
+            layoutParams = props.layoutParams
+        }
+        +h<ViewProps>(SPINNER) {
+            attributes = ViewProps {
+                layoutParams = RelativeLayoutParams(centerHorizontal = true, centerVertical = true, height = 100, width = 100)
                 ref = { args ->
                     spinner = args as IView
                 }
-        ))
+            }
+        }
         val vNode = props.body
         val oldRef = vNode.attributes.ref
         vNode.attributes.ref = {
@@ -50,11 +56,21 @@ class Loading : PlatformComponent, Component<LoadingProps, LoadingState>(Loading
 
 }
 
-class LoadingProps(
-        val body: VNode<out IRefProps, *>,
-        val loading: Boolean,
-        val hasData: Boolean, ref: RefFun? = null
-) : RefProps(ref)
+interface ILoadingProps : IViewProps {
+    val body: VNode<out IRefProps, *>
+    val loading: Boolean
+    val hasData: Boolean
+}
+
+class LoadingProps(init: LoadingProps.() -> Unit) : ILoadingProps, ViewProps() {
+    override lateinit var body: VNode<out IRefProps, *>
+    override var loading: Boolean = false
+    override var hasData: Boolean = false
+
+    init {
+        init()
+    }
+}
 
 data class LoadingState(
         val loading: Boolean,

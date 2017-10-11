@@ -1,7 +1,9 @@
 package vm.component
 
-import drutils.emitter.IEmitter
+import iview.IEditText
+import vm.util.emitter.IEmitter
 
-interface IContainer: IEmitter {
+interface IContainer : IEmitter {
     fun alert(s: String)
+    fun dismissKeyboard(view: IEditText)
 }
