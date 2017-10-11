@@ -24,7 +24,7 @@ object GeneralRenderer  {
         return s
     }
 
-    fun <P> renderVNode(vNode: VNode<P, *>): String {
+    fun <P: Any> renderVNode(vNode: VNode<P, *>): String {
         val nodeName = vNode.nodeName
         return when (nodeName) {
             is KFunction0<*> -> renderComponent<P>(nodeName.invoke() as HasProps<P>, vNode.attributes as P)
@@ -36,7 +36,7 @@ object GeneralRenderer  {
     fun walkSimple(vNode: VNode<*, *>): String {
         val nodeName = vNode.nodeName
         val attributes = vNode.attributes?.toString()
-        val children = vNode._children?.map(GeneralRenderer::render)?.joinToString("\n") ?: "***"
+        val children = vNode.nodes?.map(GeneralRenderer::render)?.joinToString("\n") ?: "***"
         return """<$nodeName $attributes>
         |$children
         |</$nodeName>""".trimMargin()

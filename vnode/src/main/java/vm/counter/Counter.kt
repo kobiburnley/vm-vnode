@@ -21,21 +21,34 @@ class Counter : PlatformComponent, Component<CounterProps?, CounterState>(Counte
     }
 
     override fun renderAndroid(): VNode<*, *> {
-        val textViewProps = TextViewProps(state.num.toString(), viewProps = ViewProps(ref = { r ->
-            textView = r as ITextView
-        }))
-        return h(LINEAR, null) {
-            +h(BUTTON, vm.props.android.ButtonProps(handleClick, "CLICK"))
-            +h(TEXT, textViewProps)
+        return h<Unit>(LINEAR) {
+            +h<IButtonProps>(BUTTON) {
+                attributes = ButtonProps {
+                    title = "CLICK"
+                    onClick = handleClick
+
+                }
+            }
+            +h<ITextViewProps>(TEXT) {
+                attributes = TextViewProps {
+                    text = state.num.toString()
+                    ref = { r ->
+                        textView = r as ITextView
+                    }
+                }
+            }
         }
     }
 
     override fun renderWeb() =
-            h("div", null) {
-                +h("button", vm.props.web.ButtonProps(handleClick)) {
-                    +"CLICK"
+            h<Unit>("div") {
+                +h<ButtonProps>("button") {
+                    ButtonProps {
+                        title = "CLICK"
+                        onClick = handleClick
+                    }
                 }
-                +h("span", null) {
+                +h<Unit>("span") {
                     +state.num.toString()
                 }
             }

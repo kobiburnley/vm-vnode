@@ -1,2 +1,3 @@
-include ':vnode', ':iview'
+include ':vnode', ':iview', ':emitter'
 project (":iview").projectDir = new File("../iview")
+project (":emitter").projectDir = new File("../emitter/emitter")
