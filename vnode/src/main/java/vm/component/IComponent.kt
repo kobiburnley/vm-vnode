@@ -15,7 +15,7 @@ interface IComponent<P, S> : HasProps<P>, ILifeCycle<P> {
     fun updateView(newState: S) {}
 
     @JsName("setState")
-    fun _setState(newState: S) {
+    fun mSetState(newState: S) {
         when (Platform.platform) {
             Platform.WEB -> stateSetter!!.invoke(this, newState)
             else -> updateView(newState)
