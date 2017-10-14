@@ -11,7 +11,9 @@ interface ReView {
     var component: IRenderable?
 }
 
+@JvmField
 val MATCH_PARENT = -1
+@JvmField
 val WRAP_CONTENT = -2
 
 

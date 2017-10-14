@@ -12,7 +12,9 @@ class FlatList : PlatformComponent, Component<FlatListProps, FlatListState>(Flat
     lateinit var recycler: IRecycler
 
     override fun updateView(newState: FlatListState) {
-        recycler.length = newState.length
+        val (length, position) = newState
+        recycler.length = length
+        recycler.position = position
     }
 
     override fun renderAndroid() = h<IRecyclerProps>(RECYCLER) {
@@ -31,18 +33,28 @@ class FlatList : PlatformComponent, Component<FlatListProps, FlatListState>(Flat
 }
 
 typealias RenderRowEvent = (args: Any?) -> VNode<*, *>
-typealias UpdateRowEvent = (args: ReView, position: Int) -> Unit
+typealias UpdateRowEvent = (review: ReView, position: Int, adapterPosition: Int) -> Unit
+typealias ScrollEvent = (first: Int, total: Int) -> Unit
+typealias ScrollStateChangeEvent = (newState: String) -> Unit
 
 interface IFlatListProps : IViewProps {
     val length: Int
+    val scroll: Boolean
     val onRenderRow: RenderRowEvent
     val onUpdateRow: UpdateRowEvent
+    val onScroll: ScrollEvent?
+    val onScrollStateChange: ScrollStateChangeEvent?
+    val itemCacheSize: Int
 }
 
 open class FlatListProps : ViewProps, IFlatListProps {
     final override var length: Int = 0
+    final override var scroll: Boolean = true
     final override lateinit var onRenderRow: RenderRowEvent
     final override lateinit var onUpdateRow: UpdateRowEvent
+    final override var onScroll: ScrollEvent? = null
+    final override var onScrollStateChange: ScrollStateChangeEvent? = null
+    final override var itemCacheSize: Int = 2
 
     constructor() : super()
 
@@ -54,7 +66,11 @@ open class FlatListProps : ViewProps, IFlatListProps {
         length = flatListProps.length
         onRenderRow = flatListProps.onRenderRow
         onUpdateRow = flatListProps.onUpdateRow
+        scroll = flatListProps.scroll
+        onScroll = flatListProps.onScroll
+        onScrollStateChange = flatListProps.onScrollStateChange
+        itemCacheSize = flatListProps.itemCacheSize
     }
 }
 
-data class FlatListState(val length: Int)
+data class FlatListState(val length: Int, val position: Int = 0)

@@ -18,6 +18,7 @@ interface IViewProps : IRefProps {
     val paddingBottom: Int
     val paddingLeft: Int
     val padding: Int
+    val minHeight: Int
     val top: Int
     val visibility: Int
     val onClick: (() -> Unit)?
@@ -25,6 +26,11 @@ interface IViewProps : IRefProps {
 }
 
 open class ViewProps : IViewProps {
+    companion object {
+        @JvmField
+        val EMPTY = ViewProps()
+    }
+
     override var id: Int = -1
     override var bgColor: Int = -1
     override var paddingTop: Int = 0
@@ -32,6 +38,7 @@ open class ViewProps : IViewProps {
     override var paddingBottom: Int = 0
     override var paddingLeft: Int = 0
     override var padding: Int = 0
+    override var minHeight: Int = -1
     override var top: Int = -1
     override var visibility: Int = Visibility.VISIBLE
     override var onClick: (() -> Unit)? = null
@@ -40,11 +47,15 @@ open class ViewProps : IViewProps {
 
     constructor()
 
-    constructor(init: ViewProps.() -> Unit) {
+    constructor(init: ViewProps.() -> Unit): this() {
         init()
     }
 
-    constructor(viewProps: IViewProps) {
+    constructor(viewProps: IViewProps, init: ViewProps.() -> Unit) : this(viewProps) {
+        init()
+    }
+
+    constructor(viewProps: IViewProps): this() {
         id = viewProps.id
         bgColor = viewProps.bgColor
         paddingTop = viewProps.paddingTop

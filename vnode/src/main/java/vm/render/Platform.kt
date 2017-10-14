@@ -4,6 +4,6 @@ enum class Platform {
     WEB, ANDROID, iOS, UNKNOWN;
 
     companion object {
-        var platform: Platform = UNKNOWN
+        @JvmField var platform: Platform = UNKNOWN
     }
 }

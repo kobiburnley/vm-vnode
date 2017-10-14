@@ -5,9 +5,7 @@ import vm.component.Component
 import vm.props.android.*
 import vm.vnode.*
 
-class Counter : PlatformComponent, Component<CounterProps?, CounterState>(CounterState(0)) {
-    override var props: CounterProps? = null
-
+class Counter : PlatformComponent, Component<CounterProps, CounterState>(CounterState(0)) {
     lateinit var textView: ITextView
 
     private val handleClick = {

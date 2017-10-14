@@ -18,8 +18,8 @@ class Loading : PlatformComponent, Component<LoadingProps, LoadingState>(Loading
 
     override fun renderAndroid() = h<ViewProps>(RELATIVE) {
         attributes = ViewProps {
-            top = props.top
             layoutParams = props.layoutParams
+            bgColor = props.bgColor
         }
         +h<ViewProps>(SPINNER) {
             attributes = ViewProps {
@@ -45,10 +45,8 @@ class Loading : PlatformComponent, Component<LoadingProps, LoadingState>(Loading
     override fun updateView(newState: LoadingState) {
         if (newState.loading) {
             spinner.setVisibility(Visibility.VISIBLE)
-            inner.setVisibility(Visibility.GONE)
         } else if (newState.hasData) {
-            spinner.setVisibility(Visibility.GONE)
-            inner.setVisibility(Visibility.VISIBLE)
+            spinner.setVisibility(Visibility.INVISIBLE)
         }
     }
 
