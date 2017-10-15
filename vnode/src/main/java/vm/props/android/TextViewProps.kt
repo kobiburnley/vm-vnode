@@ -6,12 +6,14 @@ interface ITextViewProps: IViewProps {
     var textSize: Float
 }
 
-class TextViewProps(init: TextViewProps.() -> Unit) : ITextViewProps, ViewProps() {
+open class TextViewProps : ITextViewProps, ViewProps {
     override var text: String = ""
     override var textColor: Int = -1
     override var textSize: Float = -1F
 
-    init {
+    constructor() : super()
+
+    constructor(init: TextViewProps.() -> Unit): this() {
         init()
     }
 }

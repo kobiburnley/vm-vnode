@@ -1,10 +1,10 @@
 package vm.props.android
 
-interface IButtonProps : IViewProps {
+interface IButtonProps : ITextViewProps {
     val title: String
 }
 
-class ButtonProps(init: ButtonProps.() -> Unit) : IButtonProps, ViewProps() {
+class ButtonProps(init: ButtonProps.() -> Unit) : IButtonProps, TextViewProps() {
     override lateinit var title: String
 
     init {
