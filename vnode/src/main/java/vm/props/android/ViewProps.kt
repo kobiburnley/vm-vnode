@@ -22,7 +22,8 @@ interface IViewProps : IRefProps {
     val top: Int
     val visibility: Int
     val onClick: (() -> Unit)?
-    val layoutParams: ILayoutParams
+    var layoutParams: ILayoutParams
+    var children: List<Any?>
 }
 
 open class ViewProps : IViewProps {
@@ -31,23 +32,24 @@ open class ViewProps : IViewProps {
         val EMPTY = ViewProps()
     }
 
-    override var id: Int = -1
-    override var bgColor: Int = -1
-    override var paddingTop: Int = 0
-    override var paddingRight: Int = 0
-    override var paddingBottom: Int = 0
-    override var paddingLeft: Int = 0
-    override var padding: Int = 0
-    override var minHeight: Int = -1
-    override var top: Int = -1
-    override var visibility: Int = Visibility.VISIBLE
-    override var onClick: (() -> Unit)? = null
-    override var layoutParams: ILayoutParams = ReLayoutParams()
-    override var ref: RefFun? = null
+    final override var id: Int = -1
+    final override var bgColor: Int = -1
+    final override var paddingTop: Int = 0
+    final override var paddingRight: Int = 0
+    final override var paddingBottom: Int = 0
+    final override var paddingLeft: Int = 0
+    final override var padding: Int = 0
+    final override var minHeight: Int = -1
+    final override var top: Int = -1
+    final override var visibility: Int = Visibility.VISIBLE
+    final override var onClick: (() -> Unit)? = null
+    final override var layoutParams: ILayoutParams = ReLayoutParams()
+    final override var ref: RefFun? = null
+    final override var children: List<Any?> = emptyList()
 
     constructor()
 
-    constructor(init: ViewProps.() -> Unit): this() {
+    constructor(init: ViewProps.() -> Unit) {
         init()
     }
 
@@ -55,7 +57,7 @@ open class ViewProps : IViewProps {
         init()
     }
 
-    constructor(viewProps: IViewProps): this() {
+    constructor(viewProps: IViewProps) : this() {
         id = viewProps.id
         bgColor = viewProps.bgColor
         paddingTop = viewProps.paddingTop
@@ -68,5 +70,6 @@ open class ViewProps : IViewProps {
         onClick = viewProps.onClick
         layoutParams = viewProps.layoutParams
         ref = viewProps.ref
+        children = viewProps.children
     }
 }
