@@ -8,5 +8,5 @@ interface IContainer : IEmitter {
     fun alert(s: String)
     fun getActivity(): Any
     fun dismissKeyboard(view: IEditText)
-    fun routeTo(id: String, data: HashMap<String, String>?)
+    fun routeTo(id: String, tag: String, data: HashMap<String, String>?)
 }
