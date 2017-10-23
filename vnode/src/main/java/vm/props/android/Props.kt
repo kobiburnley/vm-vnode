@@ -44,6 +44,7 @@ class RelativeLayoutParams(
 class LinearLayoutParams(
         override val height: Int = MATCH_PARENT,
         override val width: Int = MATCH_PARENT,
-        val weight: Float = 0F
+        val weight: Float = 0F,
+        val gravity: Int = -1
 ) : ILayoutParams
 
